@@ -1,10 +1,13 @@
 package directoryScan;
 
 import java.io.*;
+import java.util.*;
 
 public class DirectorySize {
 	
 	// TODO create private LinkedList data field here
+	
+	private static float totalSize = 0;
 
 	public static void main(String[] args) throws IOException {
 		// Validate amount of arguments
@@ -27,7 +30,6 @@ public class DirectorySize {
 			System.out.println("This is a directory");
 		} else if (dir.isFile()) {
 			System.out.println("This is a file");
-			System.exit(0);
 		} else {
 			System.err.println("Error: this is NOTHING");
 			System.exit(0);
@@ -50,8 +52,29 @@ public class DirectorySize {
 	
 	public static float exploreDir(File dir) {
 		
+		// if file is directory
+		if (dir.isDirectory()) {
+			
+			// creates new File[] array with array of files/dir
+			File[] newFileList = dir.listFiles();
+			
+			// for each file and directory in directory
+			for (int i = 0; i < newFileList.length; i++) {
+				dir = newFileList[i];
+				// add to total size
+				totalSize += dir.length(); // TODO figure out how to delete first duplicate
+				System.out.println(totalSize + " [" + dir.length() + "] " + newFileList[i]);
+				exploreDir(dir); // try without returning
+			}
+			
+		} else if (dir.isFile()) {
+			// add to total size
+			totalSize += dir.length();
+			
+			// TODO add file to list of files
+		} // maybe add error check for ones that don't fit either
 		
-		return 0;
+		return totalSize;
 	}
 
 }
