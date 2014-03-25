@@ -28,8 +28,10 @@ public class DirectorySize {
 		// Check to make sure this new file is a directory
 		if (dir.isDirectory()) {
 			System.out.println("This is a directory");
+			System.out.println("Directory Name: " + dir + "\n");
 		} else if (dir.isFile()) {
 			System.out.println("This is a file");
+			System.out.println("Directory Name: " + dir + "\n");
 		} else {
 			System.err.println("Error: this is NOTHING");
 			System.exit(0);
@@ -61,15 +63,17 @@ public class DirectorySize {
 			// for each file and directory in directory
 			for (int i = 0; i < newFileList.length; i++) {
 				dir = newFileList[i];
-				// add to total size
-				totalSize += dir.length(); // TODO figure out how to delete first duplicate
-				System.out.println(totalSize + " [" + dir.length() + "] " + newFileList[i]);
+				System.out.println("D: " + totalSize + " [" + dir.length() + "] " + newFileList[i]);
 				exploreDir(dir); // try without returning
 			}
 			
-		} else if (dir.isFile()) {
 			// add to total size
 			totalSize += dir.length();
+			
+		} else {
+			// add to total size
+			totalSize += dir.length();
+			System.out.println("You found a file!");
 			
 			// TODO add file to list of files
 		} // maybe add error check for ones that don't fit either
