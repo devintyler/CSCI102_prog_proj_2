@@ -12,7 +12,7 @@ public class GenericSortedLinkedList<T> {
 	}
     
     public void insert(T element) {
-    	// TODO make sorted
+    	// TODO make sorted using compareTo in FileOnDisk File.compareTo(node)
 		GenericNode<T> newNode = new GenericNode<T>(element);
 		newNode.setLink(head);
 		head = newNode; //adds new data to the beginning of the list

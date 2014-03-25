@@ -1,5 +1,7 @@
 package directoryScan;
 
+import java.io.*;
+
 public class FileOnDisk {
 	
 	private String file;
@@ -58,8 +60,16 @@ public class FileOnDisk {
 		return (string);
 	}
 	
-	public void compareTo (float size) {
+	public int compareTo (File file) {
 		// Not sure how to write this TODO
+		file.length();
+		// if file using compareTo > file.length();
+		// return 1;
+		// if file using compareTo < file.length();
+		// return 2;
+		// if file using compareTo == file.length();
+		// figure out how to compare names
+		return 1;
 	}
 
 }
