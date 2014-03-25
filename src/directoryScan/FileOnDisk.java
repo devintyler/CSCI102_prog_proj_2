@@ -2,6 +2,9 @@ package directoryScan;
 
 public class FileOnDisk {
 	
+	private String file;
+	private float size;
+	
 	/**
 	 * @return the file
 	 */
@@ -29,9 +32,6 @@ public class FileOnDisk {
 	public void setSize(float size) {
 		this.size = size;
 	}
-
-	private String file;
-	private float size;
 	
 	FileOnDisk (String file, float size) {
 		this.file = file;
