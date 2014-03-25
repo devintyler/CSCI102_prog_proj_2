@@ -6,7 +6,6 @@ import java.util.*;
 public class DirectorySize {
 	
 	// TODO create private LinkedList data field here
-	
 	private static float totalSize = 0;
 
 	public static void main(String[] args) throws IOException {
@@ -46,10 +45,12 @@ public class DirectorySize {
 			System.exit(0);
 		}
 		
-		totalSize -= dir.length(); // gets rid of original directory size
+		if (dir.isDirectory()) {
+			totalSize -= dir.length(); // gets rid of original directory size
+		}
 		exploreDir(dir);
 		
-		System.out.print("\nTotal found size is " + totalSize);
+		System.out.println("\nTotal found size is " + totalSize);
 		
 		// TODO print results to console
 
@@ -78,7 +79,7 @@ public class DirectorySize {
 			// add to total size
 			totalSize += dir.length();
 			// using system.err to boldly show files
-			System.err.println("F: " + totalSize + " [" + dir.length() + "] " + dir);
+			System.out.println("F: " + totalSize + " [" + dir.length() + "] " + dir);
 			
 			// TODO add file to list of files
 		} // maybe add error check for ones that don't fit either
