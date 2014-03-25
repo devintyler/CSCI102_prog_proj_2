@@ -40,21 +40,26 @@ public class FileOnDisk {
 	
 	public String toString() {
 		String adjustedSize = "";
+		float roundedSize = 0;
 		if (size < 1024) {
-			adjustedSize = (size + " bytes");
+			roundedSize = size;
+			adjustedSize = (roundedSize + " bytes");
 		} else if (size > 1024 && size < (1024 * 1024)) {
-			adjustedSize = ((size / 1024) + " KB");
+			roundedSize = (float)Math.round((size / 1024) * 100) / 100;
+			adjustedSize = (roundedSize + " KB");
 		} else if (size > (1024 * 1024) && size < (1024 * 1024 * 1024)) {
-			adjustedSize = ((size / (1024 * 1024)) + " MB");
+			roundedSize = (float)Math.round((size / (1024 * 1024)) * 100) / 100;
+			adjustedSize = (roundedSize + " MB");
 		} else {
-			adjustedSize = ((size / (1024 * 1024 * 1024)) + " GB");
+			roundedSize = (float)Math.round((size / (1024 * 1024 * 1024)) * 100) / 100;
+			adjustedSize = (roundedSize + " GB");
 		}
-		String string = (adjustedSize + "    " + file);
+		String string = (adjustedSize + " " + file);
 		return (string);
 	}
 	
 	public void compareTo (float size) {
-		// Not sure how to write this
+		// Not sure how to write this TODO
 	}
 
 }

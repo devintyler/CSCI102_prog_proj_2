@@ -27,10 +27,10 @@ public class DirectorySize {
 		// Check to make sure this new file is a directory
 		if (dir.isDirectory()) {
 			System.out.println("This is a directory");
-			System.out.println("Directory Name: " + dir + " [" + dir.length() + "]\n");
+			System.out.println("Directory Name: " + dir + "\n");
 		} else if (dir.isFile()) {
 			System.out.println("This is a file");
-			System.out.println("Directory Name: " + dir + " [" + dir.length() + "]\n");
+			System.out.println("Directory Name: " + dir + "\n");
 		} else {
 			System.err.println("Error: this is NOTHING");
 			System.exit(0);
@@ -67,7 +67,7 @@ public class DirectorySize {
 			// creates new File[] array with array of files/dir
 			File[] newFileList = dir.listFiles();
 			
-			System.out.println("D: " + totalSize + " [" + dir.length() + "] " + dir);
+			System.out.println("D: " + totalSize + " [" + dir.length() + "] " + dir.getAbsolutePath());
 			
 			// for each file and directory in directory
 			for (int i = 0; i < newFileList.length; i++) {
@@ -78,8 +78,11 @@ public class DirectorySize {
 		} else {
 			// add to total size
 			totalSize += dir.length();
+			FileOnDisk file = new FileOnDisk(dir.getAbsolutePath(), dir.length()); // makes new file object
+			
 			// using system.err to boldly show files
-			System.out.println("F: " + totalSize + " [" + dir.length() + "] " + dir);
+//			System.out.println("F: " + totalSize + " [" + dir.length() + "] " + dir);
+			System.out.println("F: " + file.toString());
 			
 			// TODO add file to list of files
 		} // maybe add error check for ones that don't fit either
