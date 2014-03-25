@@ -50,7 +50,8 @@ public class DirectorySize {
 		}
 		exploreDir(dir);
 		
-		System.out.println("\nTotal found size is " + totalSize);
+		// print Total Size
+		System.out.println("\nTotal found size is " + print(totalSize));
 		
 		// TODO print results to console
 
@@ -67,7 +68,7 @@ public class DirectorySize {
 			// creates new File[] array with array of files/dir
 			File[] newFileList = dir.listFiles();
 			
-			System.out.println("D: " + totalSize + " [" + dir.length() + "] " + dir.getAbsolutePath());
+			System.out.println("D: " + print(totalSize) + " [" + print(dir.length()) + "] " + dir.getAbsolutePath());
 			
 			// for each file and directory in directory
 			for (int i = 0; i < newFileList.length; i++) {
@@ -88,6 +89,25 @@ public class DirectorySize {
 		} // maybe add error check for ones that don't fit either
 		
 		return totalSize;
+	}
+	
+	public static String print(float size) { // method for printing size properly
+		String adjustedSize = "";
+		float roundedSize = 0;
+		if (size < 1024) {
+			roundedSize = (float)Math.round(size * 100) / 100;
+			adjustedSize = (roundedSize + " bytes");
+		} else if (size > 1024 && size < (1024 * 1024)) {
+			roundedSize = (float)Math.round((size / 1024) * 100) / 100;
+			adjustedSize = (roundedSize + " KB");
+		} else if (size > (1024 * 1024) && size < (1024 * 1024 * 1024)) {
+			roundedSize = (float)Math.round((size / (1024 * 1024)) * 100) / 100;
+			adjustedSize = (roundedSize + " MB");
+		} else {
+			roundedSize = (float)Math.round((size / (1024 * 1024 * 1024)) * 100) / 100;
+			adjustedSize = (roundedSize + " GB");
+		}
+		return adjustedSize;
 	}
 
 }
