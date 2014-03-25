@@ -28,10 +28,10 @@ public class DirectorySize {
 		// Check to make sure this new file is a directory
 		if (dir.isDirectory()) {
 			System.out.println("This is a directory");
-			System.out.println("Directory Name: " + dir + "\n");
+			System.out.println("Directory Name: " + dir + " [" + dir.length() + "]\n");
 		} else if (dir.isFile()) {
 			System.out.println("This is a file");
-			System.out.println("Directory Name: " + dir + "\n");
+			System.out.println("Directory Name: " + dir + " [" + dir.length() + "]\n");
 		} else {
 			System.err.println("Error: this is NOTHING");
 			System.exit(0);
@@ -46,7 +46,10 @@ public class DirectorySize {
 			System.exit(0);
 		}
 		
+		totalSize -= dir.length(); // gets rid of original directory size
 		exploreDir(dir);
+		
+		System.out.print("\nTotal found size is " + totalSize);
 		
 		// TODO print results to console
 
@@ -57,23 +60,25 @@ public class DirectorySize {
 		// if file is directory
 		if (dir.isDirectory()) {
 			
+			// add to total size
+			totalSize += dir.length();
+			
 			// creates new File[] array with array of files/dir
 			File[] newFileList = dir.listFiles();
+			
+			System.out.println("D: " + totalSize + " [" + dir.length() + "] " + dir);
 			
 			// for each file and directory in directory
 			for (int i = 0; i < newFileList.length; i++) {
 				dir = newFileList[i];
-				System.out.println("D: " + totalSize + " [" + dir.length() + "] " + newFileList[i]);
-				exploreDir(dir); // try without returning
+				exploreDir(dir); // recursive formula
 			}
-			
-			// add to total size
-			totalSize += dir.length();
 			
 		} else {
 			// add to total size
 			totalSize += dir.length();
-			System.out.println("You found a file!");
+			// using system.err to boldly show files
+			System.err.println("F: " + totalSize + " [" + dir.length() + "] " + dir);
 			
 			// TODO add file to list of files
 		} // maybe add error check for ones that don't fit either
