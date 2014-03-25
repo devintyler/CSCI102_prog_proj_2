@@ -37,5 +37,24 @@ public class FileOnDisk {
 		this.file = file;
 		this.size = size;
 	}
+	
+	public String toString() {
+		String adjustedSize = "";
+		if (size < 1024) {
+			adjustedSize = (size + " bytes");
+		} else if (size > 1024 && size < (1024 * 1024)) {
+			adjustedSize = ((size / 1024) + " KB");
+		} else if (size > (1024 * 1024) && size < (1024 * 1024 * 1024)) {
+			adjustedSize = ((size / (1024 * 1024)) + " MB");
+		} else {
+			adjustedSize = ((size / (1024 * 1024 * 1024)) + " GB");
+		}
+		String string = (adjustedSize + "    " + file);
+		return (string);
+	}
+	
+	public void compareTo (float size) {
+		// Not sure how to write this
+	}
 
 }
