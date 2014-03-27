@@ -15,7 +15,17 @@ public class GenericSortedLinkedList<T> {
     	// TODO make sorted using compareTo in FileOnDisk File.compareTo(node)
 		GenericNode<T> newNode = new GenericNode<T>(element);
 		newNode.setLink(head);
-		head = newNode; //adds new data to the beginning of the list
+		boolean end = false;
+		while (!end) {
+			if (newNode.compareTo(newNode.getLink()) > 0) {
+				head = newNode; //adds new data to the beginning of the list
+				end = true;
+			} else if (newNode.compareTo(newNode.getLink()) < 0) {
+				newNode = newNode.getLink();
+			} else {
+				// figure out how to sort alpha...
+			}
+		}
     }
 
 //    public void clear() 

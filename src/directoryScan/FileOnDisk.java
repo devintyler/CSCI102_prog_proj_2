@@ -5,7 +5,7 @@ import java.io.*;
 public class FileOnDisk {
 	
 	private String file;
-	private float size;
+	private double size;
 	
 	/**
 	 * @return the file
@@ -24,52 +24,50 @@ public class FileOnDisk {
 	/**
 	 * @return the size
 	 */
-	public float getSize() {
+	public double getSize() {
 		return size;
 	}
 
 	/**
 	 * @param size the size to set
 	 */
-	public void setSize(float size) {
+	public void setSize(double size) {
 		this.size = size;
 	}
 	
-	FileOnDisk (String file, float size) {
+	FileOnDisk (String file, double size) {
 		this.file = file;
 		this.size = size;
 	}
 	
 	public String toString() {
 		String adjustedSize = "";
-		float roundedSize = 0;
+		double roundedSize = 0;
 		if (size < 1024) {
 			roundedSize = size;
 			adjustedSize = (roundedSize + " bytes");
 		} else if (size > 1024 && size < (1024 * 1024)) {
-			roundedSize = (float)Math.round((size / 1024) * 100) / 100;
+			roundedSize = (double)Math.round((size / 1024) * 100) / 100;
 			adjustedSize = (roundedSize + " KB");
 		} else if (size > (1024 * 1024) && size < (1024 * 1024 * 1024)) {
-			roundedSize = (float)Math.round((size / (1024 * 1024)) * 100) / 100;
+			roundedSize = (double)Math.round((size / (1024 * 1024)) * 100) / 100;
 			adjustedSize = (roundedSize + " MB");
 		} else {
-			roundedSize = (float)Math.round((size / (1024 * 1024 * 1024)) * 100) / 100;
+			roundedSize = (double)Math.round((size / (1024 * 1024 * 1024)) * 100) / 100;
 			adjustedSize = (roundedSize + " GB");
 		}
 		String string = (adjustedSize + " " + file);
 		return (string);
 	}
 	
-	public int compareTo (File file) {
-		// Not sure how to write this TODO
-		file.length();
-		// if file using compareTo > file.length();
-		// return 1;
-		// if file using compareTo < file.length();
-		// return 2;
-		// if file using compareTo == file.length();
-		// figure out how to compare names
-		return 1;
+	public int compareTo (FileOnDisk file) {
+		if (this.size > file.getSize()) {
+			return 1;
+		} else if (this.size < file.getSize()) {
+			return -1;
+		} else {
+			return 0;
+		}
 	}
 
 }

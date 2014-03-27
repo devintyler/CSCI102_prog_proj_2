@@ -5,8 +5,9 @@ import java.util.*;
 
 public class DirectorySize {
 	
-	// TODO create private LinkedList data field here
-	private static float totalSize = 0;
+	// create private LinkedList data field here
+	GenericSortedLinkedList<FileOnDisk> list = null;
+	private static double totalSize = 0;
 
 	public static void main(String[] args) throws IOException {
 		// Validate amount of arguments
@@ -57,7 +58,7 @@ public class DirectorySize {
 
 	}
 	
-	public static float exploreDir(File dir) {
+	public static double exploreDir(File dir) {
 		
 		// if file is directory
 		if (dir.isDirectory()) {
@@ -68,7 +69,7 @@ public class DirectorySize {
 			// creates new File[] array with array of files/dir
 			File[] newFileList = dir.listFiles();
 			
-			System.out.println("D: " + print(totalSize) + " [" + print(dir.length()) + "] " + dir.getAbsolutePath());
+			System.out.println("D: " + print(totalSize) + " " + dir.getAbsolutePath());
 			
 			// for each file and directory in directory
 			for (int i = 0; i < newFileList.length; i++) {
@@ -91,20 +92,21 @@ public class DirectorySize {
 		return totalSize;
 	}
 	
-	public static String print(float size) { // method for printing size properly
+	public static String print(double size) { // method for printing size properly
+		// TODO change all double to double or long *** double needed for dividing
 		String adjustedSize = "";
-		float roundedSize = 0;
+		double roundedSize = 0;
 		if (size < 1024) {
-			roundedSize = (float)Math.round(size * 100) / 100;
+			roundedSize = (double)Math.round(size * 100) / 100; // use string.format instead
 			adjustedSize = (roundedSize + " bytes");
 		} else if (size > 1024 && size < (1024 * 1024)) {
-			roundedSize = (float)Math.round((size / 1024) * 100) / 100;
+			roundedSize = (double)Math.round((size / 1024) * 100) / 100;
 			adjustedSize = (roundedSize + " KB");
 		} else if (size > (1024 * 1024) && size < (1024 * 1024 * 1024)) {
-			roundedSize = (float)Math.round((size / (1024 * 1024)) * 100) / 100;
+			roundedSize = (double)Math.round((size / (1024 * 1024)) * 100) / 100;
 			adjustedSize = (roundedSize + " MB");
 		} else {
-			roundedSize = (float)Math.round((size / (1024 * 1024 * 1024)) * 100) / 100;
+			roundedSize = (double)Math.round((size / (1024 * 1024 * 1024)) * 100) / 100;
 			adjustedSize = (roundedSize + " GB");
 		}
 		return adjustedSize;

@@ -3,26 +3,51 @@ package directoryScan;
 public class GenericNode<T> {
 	private T data;
     private GenericNode<T> link;
+    private double size; // TODO fix size
 
     public GenericNode(T data){
-	this.data = data;
-	link = null;
+		this.data = data;
+		link = null;
     }
 
     public void setData(T data){
-	this.data = data;
+    	this.data = data;
     }
 
     public T getData(){
-	return data;
+    	return data;
     }
 
     public void setLink(GenericNode<T> link){
-	this.link = link;
+    	this.link = link;
     }
 
     public GenericNode<T> getLink()
     {
-	return link;
+    	return link;
     }
+    
+    /**
+	 * @return the size
+	 */
+	public double getSize() {
+		return size;
+	}
+
+	/**
+	 * @param size the size to set
+	 */
+	public void setSize(double size) {
+		this.size = size;
+	}
+    
+    public int compareTo (GenericNode<T> genericNode) {
+		if (this.size > genericNode.getSize()) {
+			return 1;
+		} else if (this.size < genericNode.getSize()) {
+			return -1;
+		} else {
+			return 0;
+		}
+	}
 }
