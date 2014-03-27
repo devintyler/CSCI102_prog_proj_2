@@ -93,21 +93,20 @@ public class DirectorySize {
 	}
 	
 	public static String print(double size) { // method for printing size properly
-		// TODO change all double to double or long *** double needed for dividing
 		String adjustedSize = "";
 		double roundedSize = 0;
 		if (size < 1024) {
-			roundedSize = (double)Math.round(size * 100) / 100; // use string.format instead
-			adjustedSize = (roundedSize + " bytes");
+			roundedSize = size; // use string.format instead
+			adjustedSize = String.format("%,.2f" + " bytes", roundedSize);
 		} else if (size > 1024 && size < (1024 * 1024)) {
-			roundedSize = (double)Math.round((size / 1024) * 100) / 100;
-			adjustedSize = (roundedSize + " KB");
+			roundedSize = (size / 1024);
+			adjustedSize = String.format("%,.2f" + " KB", roundedSize);
 		} else if (size > (1024 * 1024) && size < (1024 * 1024 * 1024)) {
-			roundedSize = (double)Math.round((size / (1024 * 1024)) * 100) / 100;
-			adjustedSize = (roundedSize + " MB");
+			roundedSize = (size / (1024 * 1024));
+			adjustedSize = String.format("%,.2f" + " MB", roundedSize);
 		} else {
-			roundedSize = (double)Math.round((size / (1024 * 1024 * 1024)) * 100) / 100;
-			adjustedSize = (roundedSize + " GB");
+			roundedSize = (size / (1024 * 1024 * 1024));
+			adjustedSize = String.format("%,.2f" + " GB", roundedSize);
 		}
 		return adjustedSize;
 	}

@@ -19,6 +19,7 @@ public class GenericSortedLinkedList<T> {
 		while (!end) {
 			if (newNode.compareTo(newNode.getLink()) > 0) {
 				head = newNode; //adds new data to the beginning of the list
+				// TODO don't forget to link new node to next node in each of these
 				end = true;
 			} else if (newNode.compareTo(newNode.getLink()) < 0) {
 				newNode = newNode.getLink();
