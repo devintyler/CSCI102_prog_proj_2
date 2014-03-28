@@ -61,12 +61,17 @@ public class FileOnDisk {
 	}
 	
 	public int compareTo (FileOnDisk file) {
-		if (this.size > file.getSize()) {
+		if (this.size > file.getSize()) { // compares by size first
 			return 1;
 		} else if (this.size < file.getSize()) {
 			return -1;
-		} else {
-			return 0;
+		} else { // if they have the same size, use string compareTo
+			if (this.file.compareTo(file.getFile()) > 0)
+				return 1;
+			else if (this.file.compareTo(file.getFile()) < 0)
+				return -1;
+			else
+				return 0;
 		}
 	}
 
