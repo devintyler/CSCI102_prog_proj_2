@@ -41,13 +41,18 @@ public class GenericNode<T> {
 		this.size = size;
 	}
     
-    public int compareTo (GenericNode<T> genericNode) {
-		if (this.size > genericNode.getSize()) {
-			return 1;
-		} else if (this.size < genericNode.getSize()) {
-			return -1;
-		} else {
-			return 0;
-		}
-	}
+//    public int compareTo (GenericNode<T> genericNode) {
+//		if (this.size > genericNode.getSize()) {
+//			return 1;
+//		} else if (this.size < genericNode.getSize()) {
+//			return -1;
+//		} else { // if they have the same size, use string compareTo
+//			if (this.file.compareTo(file.getFile()) > 0)
+//				return 1;
+//			else if (this.file.compareTo(file.getFile()) < 0)
+//				return -1;
+//			else
+//				return 0;
+//		}
+//	}
 }
