@@ -52,7 +52,7 @@ public class DirectorySize {
 		exploreDir(dir);
 		
 		// print Total Size
-		System.out.println("\nTotal found size is " + print(totalSize));
+		System.out.println("\nTotal size: " + print(totalSize));
 		
 		// TODO print results to console
 
@@ -69,7 +69,7 @@ public class DirectorySize {
 			// creates new File[] array with array of files/dir
 			File[] newFileList = dir.listFiles();
 			
-			System.out.println("D: " + print(totalSize) + " " + dir.getAbsolutePath());
+			System.out.println("D: " + print(dir.length()) + dir.getAbsolutePath());
 			
 			// for each file and directory in directory
 			for (int i = 0; i < newFileList.length; i++) {
@@ -84,7 +84,7 @@ public class DirectorySize {
 			
 			// using system.err to boldly show files
 //			System.out.println("F: " + totalSize + " [" + dir.length() + "] " + dir);
-			System.out.println("F: " + file.toString());
+			System.out.printf("F: %10s\n", file.toString());
 			
 			// TODO add file to list of files
 		} // maybe add error check for ones that don't fit either
@@ -97,16 +97,16 @@ public class DirectorySize {
 		double roundedSize = 0;
 		if (size < 1024) {
 			roundedSize = size; // use string.format instead
-			adjustedSize = String.format("%,.2f" + " bytes", roundedSize);
+			adjustedSize = String.format("%,8.2f" + " bytes  ", roundedSize);
 		} else if (size > 1024 && size < (1024 * 1024)) {
 			roundedSize = (size / 1024);
-			adjustedSize = String.format("%,.2f" + " KB", roundedSize);
+			adjustedSize = String.format("%,8.2f" + " KB     ", roundedSize);
 		} else if (size > (1024 * 1024) && size < (1024 * 1024 * 1024)) {
 			roundedSize = (size / (1024 * 1024));
-			adjustedSize = String.format("%,.2f" + " MB", roundedSize);
+			adjustedSize = String.format("%,8.2f" + " MB     ", roundedSize);
 		} else {
 			roundedSize = (size / (1024 * 1024 * 1024));
-			adjustedSize = String.format("%,.2f" + " GB", roundedSize);
+			adjustedSize = String.format("%,8.2f" + " GB     ", roundedSize);
 		}
 		return adjustedSize;
 	}

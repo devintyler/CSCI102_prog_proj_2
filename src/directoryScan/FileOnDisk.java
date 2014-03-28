@@ -45,18 +45,18 @@ public class FileOnDisk {
 		double roundedSize = 0;
 		if (size < 1024) {
 			roundedSize = size; // use string.format instead
-			adjustedSize = String.format("%,.2f" + " bytes", roundedSize);
+			adjustedSize = String.format("%,8.2f" + " bytes  " + file, roundedSize);
 		} else if (size > 1024 && size < (1024 * 1024)) {
 			roundedSize = (size / 1024);
-			adjustedSize = String.format("%,.2f" + " KB", roundedSize);
+			adjustedSize = String.format("%,8.2f" + " KB     " + file, roundedSize);
 		} else if (size > (1024 * 1024) && size < (1024 * 1024 * 1024)) {
 			roundedSize = (size / (1024 * 1024));
-			adjustedSize = String.format("%,.2f" + " MB", roundedSize);
+			adjustedSize = String.format("%,8.2f" + " MB     " + file, roundedSize);
 		} else {
 			roundedSize = (size / (1024 * 1024 * 1024));
-			adjustedSize = String.format("%,.2f" + " GB", roundedSize);
+			adjustedSize = String.format("%,8.2f" + " GB     " + file, roundedSize);
 		}
-		String string = (adjustedSize + " " + file);
+		String string = (adjustedSize);
 		return (string);
 	}
 	
