@@ -1,14 +1,30 @@
 package directoryScan;
 
 import java.io.*;
-import java.util.*;
 
+/** Class DirectorySize implements the program;
+ * It reads in information from the command line,
+ * verifies it, and explores the directory and creates output;
+ * The first command is the directory and the second is the number
+ * of largest files desired at the output
+ * 
+ * @author Devin Visslailli
+ * @version 1.0 - CSCI-102 Project 2 - 3/30/14
+ */
 public class DirectorySize {
 	
-	// create private LinkedList data field here
-	private static GenericSortedLinkedList<FileOnDisk> list = null;
+	/** Creates a Generic Sorted Linked List to be used to hold files of type FileOnDisk */
+	private static GenericSortedLinkedList<FileOnDisk> list = new GenericSortedLinkedList<FileOnDisk>(null);
+	/** Total size of the directory */
 	private static double totalSize = 0;
-
+	
+	/** Main method which runs the program;
+	 * This method error checks, and initiates exploreDir() method;
+	 * It also prints all results to the screen
+	 * 
+	 * @param args
+	 * @throws IOException
+	 */
 	public static void main(String[] args) throws IOException {
 		// Validate amount of arguments
 		if (args.length != 2) {
@@ -27,13 +43,13 @@ public class DirectorySize {
 		
 		// Check to make sure this new file is a directory
 		if (dir.isDirectory()) {
-			System.out.println("This is a directory");
-			System.out.println("Directory Name: " + dir + "\n");
+//			System.out.println("This is a directory");
+			System.out.println("Directory Path: " + dir.getAbsolutePath() + "\n");
 		} else if (dir.isFile()) {
-			System.out.println("This is a file");
-			System.out.println("Directory Name: " + dir + "\n");
+//			System.out.println("This is a file");
+			System.out.println("File Path: " + dir.getAbsolutePath() + "\n");
 		} else {
-			System.err.println("Error: this is NOTHING");
+			System.err.println("Error: this is not a file or a directory, you broke it.");
 			System.exit(0);
 		}
 		
@@ -49,15 +65,32 @@ public class DirectorySize {
 		if (dir.isDirectory()) {
 			totalSize -= dir.length(); // gets rid of original directory size
 		}
+		
+		// initiates the directory explorer method
 		exploreDir(dir);
 		
 		// print Total Size
-		System.out.println("\nTotal size: " + print(totalSize));
+		System.out.println("Total size:  " + print(totalSize));
 		
-		// TODO print results to console
+		// print number of files to be printed
+		System.out.println("Largest " + numOfDir + " (or less) files:\n");
+		
+		// **** Uncomment following code to print all files ****
+//		System.out.println(list.toString());
+		
+		// prints args[1] largest files
+		System.out.println(list.toStringMaxNum(numOfDir));
 
 	}
 	
+	/** Explores the directory given;
+	 * It recursively calls itself when a sub-directory is found
+	 * Files are taken and added to the Generic Sorted Linked List
+	 * 
+	 * @param dir
+	 * Object dir of type File is used for exploring original and sub-directories
+	 * @return exploreDir which is a recursive return call
+	 */
 	public static double exploreDir(File dir) {
 		
 		// if file is directory
@@ -68,8 +101,6 @@ public class DirectorySize {
 			
 			// creates new File[] array with array of files/dir
 			File[] newFileList = dir.listFiles();
-			
-			System.out.println("D: " + print(dir.length()) + dir.getAbsolutePath());
 			
 			// for each file and directory in directory
 			for (int i = 0; i < newFileList.length; i++) {
@@ -82,36 +113,37 @@ public class DirectorySize {
 			totalSize += dir.length();
 			FileOnDisk file = new FileOnDisk(dir.getAbsolutePath(), dir.length()); // makes new file object
 			
-			// using system.err to boldly show files
-//			System.out.println("F: " + totalSize + " [" + dir.length() + "] " + dir);
-			System.out.printf("F: %10s\n", file.toString());
-			
-			// TODO add file to list of files
-//			GenericNode<FileOnDisk> newNode = new GenericNode<FileOnDisk>(file);
+			// insert file into sorted list
 			list.insert(file);
-			
-		} // maybe add error check for ones that don't fit either
+		}
 		
-		return totalSize;
+		return totalSize; // returns total size
 	}
 	
-	public static String print(double size) { // method for printing size properly
-		String adjustedSize = "";
-		double roundedSize = 0;
-		if (size < 1024) {
+	/** Prints given byte sizes into the correct format;
+	 * Also formats the string properly
+	 * 
+	 * @param size
+	 * Given size in bytes
+	 * @return Returns the adjusted size for printing
+	 */
+	public static String print(double size) { // method for printing size properly [incl formatting]
+		String adjustedSize = ""; // instantiates string
+		double roundedSize = 0; // instantiates double
+		if (size < 1024) { // if it is less than a KB
 			roundedSize = size; // use string.format instead
 			adjustedSize = String.format("%,8.2f" + " bytes  ", roundedSize);
-		} else if (size > 1024 && size < (1024 * 1024)) {
+		} else if (size > 1024 && size < (1024 * 1024)) { // if KB
 			roundedSize = (size / 1024);
 			adjustedSize = String.format("%,8.2f" + " KB     ", roundedSize);
-		} else if (size > (1024 * 1024) && size < (1024 * 1024 * 1024)) {
+		} else if (size > (1024 * 1024) && size < (1024 * 1024 * 1024)) { // if MB
 			roundedSize = (size / (1024 * 1024));
 			adjustedSize = String.format("%,8.2f" + " MB     ", roundedSize);
-		} else {
+		} else { // if GB (TB is too large)
 			roundedSize = (size / (1024 * 1024 * 1024));
 			adjustedSize = String.format("%,8.2f" + " GB     ", roundedSize);
 		}
-		return adjustedSize;
+		return adjustedSize; // return formatted size
 	}
 
 }
