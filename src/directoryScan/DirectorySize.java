@@ -6,7 +6,7 @@ import java.util.*;
 public class DirectorySize {
 	
 	// create private LinkedList data field here
-	GenericSortedLinkedList<FileOnDisk> list = null;
+	private static GenericSortedLinkedList<FileOnDisk> list = null;
 	private static double totalSize = 0;
 
 	public static void main(String[] args) throws IOException {
@@ -87,6 +87,9 @@ public class DirectorySize {
 			System.out.printf("F: %10s\n", file.toString());
 			
 			// TODO add file to list of files
+//			GenericNode<FileOnDisk> newNode = new GenericNode<FileOnDisk>(file);
+			list.insert(file);
+			
 		} // maybe add error check for ones that don't fit either
 		
 		return totalSize;

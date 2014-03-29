@@ -14,11 +14,10 @@ public class GenericSortedLinkedList<T> {
     public void insert(T element) {
     	// TODO make sorted using compareTo in FileOnDisk File.compareTo(node)
 		GenericNode<T> newNode = new GenericNode<T>(element);
-		GenericNode<T> current = new GenericNode<T>(element);
-		current.setLink(head);
+		GenericNode<T> current = head;
 		boolean end = false;
 		while (!end) {
-			if (newNode.compareTo(newNode.getLink()) > 0) {
+			if (FileOnDisk.compareTo(newNode.getData()) > 0) {
 				head = newNode; //adds new data to the beginning of the list
 				// TODO don't forget to link new node to next node in each of these
 				end = true;
